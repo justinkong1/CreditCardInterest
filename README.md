@@ -13,6 +13,8 @@ Navigate to the project root directory and run the command matching your operati
 - **On Windows powershell:**
   ```bash
   .\mvnw.cmd clean test
+  or
+  mvnw.cmd clean test
 
 ### Option 2: Via IntelliJ IDEA
 - Open IntelliJ and select File > Open...
@@ -34,3 +36,9 @@ This solution follows SOLID programming principles by cleanly separating data st
 - calculateCardInterest(```CreditCard``` card): Calculates simple interest for a single month
 - calculateWalletInterest(```Wallet``` wallet): Sums the total interest across all ```Person```'s cards inside a specific wallet.
 - calculatePersonInterest(```Person``` person): Sums the total interest across all ```wallet```s owned by the ```Person```.  
+
+### Database Architecture / SQL
+- Without creating external dependencies, I am using in-memory H2 Database engine which is integrated into the test runtime environment.
+- File Location: src/main/resources/schema.sql
+- Behavior: The schema will drop, recreates tables, and fills the records matching all three required information for the scenarios upon test initialization.
+- Relational Mapping: Handled in JdbcPersonRepository wrapper. It executes deep joins on the relational tables and uses a factory strategy pattern to dynamically hydrate plain SQL table strings.
